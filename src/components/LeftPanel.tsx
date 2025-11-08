@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import '../assets/css/index.css';
 
-export default function LeftPanel() {
+export default function LeftPanel({ open = false }: { open: boolean }) {
 	type ToggleableItem = 'home' | 'popular' | 'friends' | 'groups';
 	const [activeItem, __setActiveItem] = useState<ToggleableItem | null>(null);
 
@@ -10,9 +10,16 @@ export default function LeftPanel() {
 	}
 
 	return (
-		<div className="left-panel bg-[var(--leftpanel-maincontainer-clr)] flex flex-col items-start overflow-y-auto mb-[10px]">
+		<div className={`left-panel 
+			bg-[var(--leftpanel-maincontainer-clr)] 
+			overflow-y-auto
+			absolute w-[70%] z-10
+			transition-transform duration-300
+			transform ${open ? 'translate-x-0' : '-translate-x-full'}
+			md:static md:flex md:flex-col md:items-start md:w-full md:translate-x-0
+		`}>
 			<div className="leftpanel-container w-[90%] h-[100vh] flex flex-col gap-[20px] items-center">
-				<div className="logo-container w-[95%] flex justify-start pl-[2vh]">
+				<div className="logo-container hidden w-[95%] md:flex justify-start pl-[2vh]">
 					<svg
 						width="122"
 						height="72"
@@ -48,7 +55,7 @@ export default function LeftPanel() {
 						</defs>
 					</svg>
 				</div>
-				<div className="items-container w-[95%] flex flex-col items-center self-end gap-[1vh]">
+				<div className="items-container mt-1 md:mt-0 w-[95%] flex flex-col items-center self-end gap-[1vh]">
 					<div className="item" onClick={() => setActiveItem('home')}>
 						<svg
 							width="32"
