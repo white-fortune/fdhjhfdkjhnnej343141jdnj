@@ -10,9 +10,9 @@ export default function LeftPanel() {
 	}
 
 	return (
-		<div className="left-panel">
-			<div className="leftpanel-container">
-				<div className="logo-container">
+		<div className="left-panel bg-[var(--leftpanel-maincontainer-clr)] flex flex-col items-start overflow-y-auto mb-[10px]">
+			<div className="leftpanel-container w-[90%] h-[100vh] flex flex-col gap-[20px] items-center">
+				<div className="logo-container w-[95%] flex justify-start pl-[2vh]">
 					<svg
 						width="122"
 						height="72"
@@ -48,7 +48,7 @@ export default function LeftPanel() {
 						</defs>
 					</svg>
 				</div>
-				<div className="items-container">
+				<div className="items-container w-[95%] flex flex-col items-center self-end gap-[1vh]">
 					<div className="item" onClick={() => setActiveItem('home')}>
 						<svg
 							width="32"
