@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import '../assets/css/index.css';
 
-export default function LeftPanel({ open = false }: { open: boolean }) {
+export default function LeftPanel({ open = false, ref }: { open: boolean, ref: React.RefObject<HTMLDivElement | null> }) {
 	type ToggleableItem = 'home' | 'popular' | 'friends' | 'groups';
 	const [activeItem, __setActiveItem] = useState<ToggleableItem | null>(null);
 
@@ -13,11 +13,11 @@ export default function LeftPanel({ open = false }: { open: boolean }) {
 		<div className={`left-panel 
 			bg-[var(--leftpanel-maincontainer-clr)] 
 			overflow-y-auto
-			absolute w-[70%] z-10
+			absolute w-[70%] z-10 h-[100vh]
 			transition-transform duration-300
 			transform ${open ? 'translate-x-0' : '-translate-x-full'}
 			md:static md:flex md:flex-col md:items-start md:w-full md:translate-x-0
-		`}>
+		`} ref={ref}>
 			<div className="leftpanel-container w-[90%] h-[100vh] flex flex-col gap-[20px] items-center">
 				<div className="logo-container hidden w-[95%] md:flex justify-start pl-[2vh]">
 					<svg
