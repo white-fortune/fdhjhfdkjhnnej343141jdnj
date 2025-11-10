@@ -1,5 +1,59 @@
-import { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import React, { useState } from 'react';
 import '../assets/css/index.css';
+
+function LeftPanelNavigationItem({ label, children, extendedClass, onClick }: { label: string, children: React.ReactElement<any>, extendedClass?: string, onClick?: any }) {
+	const clonedIcon = React.cloneElement(children, {
+		className: 'h-[24px] w-[24px]'
+	})
+	return (
+		<div className={`item
+			w-[90%] 
+			flex gap-[15px] items-center 
+			rounded-[10px] cursor-pointer p-[10px_10px]
+			hover:bg-[#e9e9e9]
+			${extendedClass}
+		`} onClick={onClick}>
+			{ clonedIcon }
+			<span className="text-[14px] font-['Space_Grotesk'] text-[rgba(0,0,0,0.7)]">{ label }</span>
+		</div>
+	)
+}
+LeftPanelNavigationItem.dropdown = ({ label, children }: { label: string, children?: React.ReactElement<any> }) => {
+	return (
+		<div className="dropdown
+			w-[90%] 
+			flex gap-[15px] items-center
+			p-[10px_10px] 
+		">
+			<span className='text-[13px] font-sans flex-grow text-[rgba(0,0,0,0.5)]'>{ label }</span>
+			{ children && React.cloneElement(children, {
+				className: 'h-[24px] w-[24px]'
+			}) }
+		</div>
+	)
+}
+LeftPanelNavigationItem.button = ({ label, children }: { label: string, children?: React.ReactElement<any> }) => {
+	return (
+		<div className="item
+			w-[90%] 
+			flex gap-[15px] items-center 
+			rounded-[10px] cursor-pointer p-[10px_10px]
+		">
+			<button className='button
+				bg-[#42acde] text-white 
+				outline-transparent border-none rounded-[20px] p-[1vh] 
+				w-[100%]
+				flex justify-center items-center gap-[5px]
+			'>
+				{ children && React.cloneElement(children, {
+					className: 'h-[24px] w-[24px]'
+				}) }
+				<span className="text-[13px] font-['Space_Grotesk'] text-white font-[400]">{ label }</span>
+			</button>
+		</div>
+	)
+}
 
 export default function LeftPanel({ open = false, ref }: { open: boolean, ref: React.RefObject<HTMLDivElement | null> }) {
 	type ToggleableItem = 'home' | 'popular' | 'friends' | 'groups';
@@ -56,10 +110,8 @@ export default function LeftPanel({ open = false, ref }: { open: boolean, ref: R
 					</svg>
 				</div>
 				<div className="items-container mt-1 md:mt-0 w-[95%] flex flex-col items-center self-end gap-[1vh]">
-					<div className="item" onClick={() => setActiveItem('home')}>
+					<LeftPanelNavigationItem label='Home' onClick={() => setActiveItem('home')}>
 						<svg
-							width="32"
-							height="32"
 							viewBox="0 0 32 32"
 							fill={activeItem === 'home' ? 'black' : 'none'}
 							xmlns="http://www.w3.org/2000/svg"
@@ -69,16 +121,9 @@ export default function LeftPanel({ open = false, ref }: { open: boolean, ref: R
 								stroke="#626261"
 							/>
 						</svg>
-
-						<span>Home</span>
-					</div>
-					<div
-						className="item"
-						onClick={() => setActiveItem('popular')}
-					>
+					</LeftPanelNavigationItem>
+					<LeftPanelNavigationItem label='Popular' onClick={() => setActiveItem('popular')}>
 						<svg
-							width="32"
-							height="32"
 							viewBox="0 0 32 32"
 							fill={activeItem === 'popular' ? 'black' : 'none'}
 							xmlns="http://www.w3.org/2000/svg"
@@ -88,13 +133,8 @@ export default function LeftPanel({ open = false, ref }: { open: boolean, ref: R
 								stroke="#626261"
 							/>
 						</svg>
-
-						<span>Popular</span>
-					</div>
-					<div
-						className="item"
-						onClick={() => setActiveItem('friends')}
-					>
+					</LeftPanelNavigationItem>
+					<LeftPanelNavigationItem label='Friends' onClick={() => setActiveItem('friends')}>
 						<svg
 							width="32"
 							height="32"
@@ -114,12 +154,9 @@ export default function LeftPanel({ open = false, ref }: { open: boolean, ref: R
 								stroke="#626261"
 							/>
 						</svg>
-						<span>Friends</span>
-					</div>
-					<div className="item">
+					</LeftPanelNavigationItem>
+					<LeftPanelNavigationItem label='Schedule'>
 						<svg
-							width="32"
-							height="32"
 							viewBox="0 0 32 32"
 							fill="none"
 							xmlns="http://www.w3.org/2000/svg"
@@ -186,64 +223,9 @@ export default function LeftPanel({ open = false, ref }: { open: boolean, ref: R
 								stroke-linejoin="round"
 							/>
 						</svg>
-
-						<span>Schedule</span>
-					</div>
-					<div className="item">
+					</LeftPanelNavigationItem>
+					<LeftPanelNavigationItem label='Study Space'>
 						<svg
-							width="32"
-							height="32"
-							viewBox="0 0 32 32"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								fill-rule="evenodd"
-								clip-rule="evenodd"
-								d="M3.19987 25.3998C3.19987 23.5221 4.7221 21.9998 6.59987 21.9998C8.47764 21.9998 9.99987 23.5221 9.99987 25.3998C9.99987 27.2776 8.47764 28.7998 6.59987 28.7998C4.7221 28.7998 3.19987 27.2776 3.19987 25.3998ZM6.59987 23.9998C5.82667 23.9998 5.19987 24.6266 5.19987 25.3998C5.19987 26.173 5.82667 26.7998 6.59987 26.7998C7.37307 26.7998 7.99987 26.173 7.99987 25.3998C7.99987 24.6266 7.37307 23.9998 6.59987 23.9998Z"
-								fill="#04DBF7"
-							/>
-							<path
-								fill-rule="evenodd"
-								clip-rule="evenodd"
-								d="M14.9999 21.6498C14.9999 19.7721 16.5221 18.2498 18.3999 18.2498C20.2776 18.2498 21.7999 19.7721 21.7999 21.6498C21.7999 23.5276 20.2776 25.0498 18.3999 25.0498C16.5221 25.0498 14.9999 23.5276 14.9999 21.6498ZM18.3999 20.2498C17.6267 20.2498 16.9999 20.8766 16.9999 21.6498C16.9999 22.423 17.6267 23.0498 18.3999 23.0498C19.1731 23.0498 19.7999 22.423 19.7999 21.6498C19.7999 20.8766 19.1731 20.2498 18.3999 20.2498Z"
-								fill="#04DBF7"
-							/>
-							<path
-								fill-rule="evenodd"
-								clip-rule="evenodd"
-								d="M17.1999 8.99983C17.1999 5.79658 19.7966 3.19983 22.9999 3.19983C26.2031 3.19983 28.7999 5.79658 28.7999 8.99983C28.7999 12.2031 26.2031 14.7998 22.9999 14.7998C19.7966 14.7998 17.1999 12.2031 17.1999 8.99983ZM22.9999 5.19983C20.9012 5.19983 19.1999 6.90115 19.1999 8.99983C19.1999 11.0985 20.9012 12.7998 22.9999 12.7998C25.0986 12.7998 26.7999 11.0985 26.7999 8.99983C26.7999 6.90115 25.0986 5.19983 22.9999 5.19983Z"
-								fill="#04DBF7"
-							/>
-							<path
-								fill-rule="evenodd"
-								clip-rule="evenodd"
-								d="M5.39987 12.5998C5.39987 10.0593 7.45936 7.99983 9.99987 7.99983C12.5404 7.99983 14.5999 10.0593 14.5999 12.5998C14.5999 15.1403 12.5404 17.1998 9.99987 17.1998C7.45936 17.1998 5.39987 15.1403 5.39987 12.5998ZM9.99987 9.99983C8.56393 9.99983 7.39987 11.1639 7.39987 12.5998C7.39987 14.0358 8.56393 15.1998 9.99987 15.1998C11.4358 15.1998 12.5999 14.0358 12.5999 12.5998C12.5999 11.1639 11.4358 9.99983 9.99987 9.99983Z"
-								fill="#04DBF7"
-							/>
-							<path
-								d="M19.1999 8.99983C19.1999 6.90115 20.9012 5.19983 22.9999 5.19983C25.0986 5.19983 26.7999 6.90115 26.7999 8.99983C26.7999 11.0985 25.0986 12.7998 22.9999 12.7998C20.9012 12.7998 19.1999 11.0985 19.1999 8.99983Z"
-								fill="#04DBF7"
-							/>
-							<path
-								d="M16.9999 21.6498C16.9999 20.8766 17.6267 20.2498 18.3999 20.2498C19.1731 20.2498 19.7999 20.8766 19.7999 21.6498C19.7999 22.423 19.1731 23.0498 18.3999 23.0498C17.6267 23.0498 16.9999 22.423 16.9999 21.6498Z"
-								fill="#04DBF7"
-							/>
-							<path
-								d="M7.39987 12.5998C7.39987 11.1639 8.56393 9.99983 9.99987 9.99983C11.4358 9.99983 12.5999 11.1639 12.5999 12.5998C12.5999 14.0358 11.4358 15.1998 9.99987 15.1998C8.56393 15.1998 7.39987 14.0358 7.39987 12.5998Z"
-								fill="#04DBF7"
-							/>
-							<path
-								d="M5.19987 25.3998C5.19987 24.6266 5.82667 23.9998 6.59987 23.9998C7.37307 23.9998 7.99987 24.6266 7.99987 25.3998C7.99987 26.173 7.37307 26.7998 6.59987 26.7998C5.82667 26.7998 5.19987 26.173 5.19987 25.3998Z"
-								fill="#04DBF7"
-							/>
-						</svg>
-						<span>Analytics</span>
-					</div>
-					<div className="item">
-						<svg
-							width="32"
-							height="32"
 							viewBox="0 0 32 32"
 							fill="none"
 							xmlns="http://www.w3.org/2000/svg"
@@ -275,10 +257,10 @@ export default function LeftPanel({ open = false, ref }: { open: boolean, ref: R
 								/>
 							</defs>
 						</svg>
-						<span>Study Space</span>
-					</div>
-					<div className="dropdown">
-						<span>Groups</span>
+					</LeftPanelNavigationItem>
+					
+
+					<LeftPanelNavigationItem.dropdown label='Groups'>
 						<svg
 							viewBox="0 0 24 24"
 							fill="none"
@@ -292,11 +274,8 @@ export default function LeftPanel({ open = false, ref }: { open: boolean, ref: R
 								fill-opacity="0.4"
 							/>
 						</svg>
-					</div>
-					<div
-						className="item"
-						onClick={() => setActiveItem('groups')}
-					>
+					</LeftPanelNavigationItem.dropdown>
+					<LeftPanelNavigationItem label='Explore Groups' onClick={() => setActiveItem('groups')}>
 						<svg
 							width="32"
 							height="32"
@@ -336,30 +315,26 @@ export default function LeftPanel({ open = false, ref }: { open: boolean, ref: R
 								stroke-linecap="round"
 							/>
 						</svg>
-						<span>Explore Groups</span>
-					</div>
-					<div className="item no-hover">
-						<button>
-							<svg
-								viewBox="0 0 24 24"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									d="M12 5V19M5 12H19"
-									stroke="white"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-								/>
-							</svg>
-							<span>Create A Group</span>
-						</button>
-					</div>
-					<div className="dropdown">
-						<span>Tools</span>
-					</div>
-					<div className="item">
+					</LeftPanelNavigationItem>
+					<LeftPanelNavigationItem.button label='Create A Group'>
+						<svg
+							viewBox="0 0 24 24"
+							fill="none"
+							xmlns="http://www.w3.org/2000/svg"
+						>
+							<path
+								d="M12 5V19M5 12H19"
+								stroke="white"
+								stroke-width="2"
+								stroke-linecap="round"
+								stroke-linejoin="round"
+							/>
+						</svg>
+					</LeftPanelNavigationItem.button>
+
+
+					<LeftPanelNavigationItem.dropdown label='Tools' />
+					<LeftPanelNavigationItem label='Explore Tools'>
 						<svg
 							width="32"
 							height="32"
@@ -396,12 +371,11 @@ export default function LeftPanel({ open = false, ref }: { open: boolean, ref: R
 								stroke="black"
 							/>
 						</svg>
-						<span>Explore Tools</span>
-					</div>
-					<div className="dropdown">
-						<span>Others</span>
-					</div>
-					<div className="item">
+					</LeftPanelNavigationItem>
+					
+
+					<LeftPanelNavigationItem.dropdown label='Others' />
+					<LeftPanelNavigationItem label='Settings'>
 						<svg
 							width="33"
 							height="33"
@@ -421,10 +395,8 @@ export default function LeftPanel({ open = false, ref }: { open: boolean, ref: R
 								stroke-width="1.23077"
 							/>
 						</svg>
-
-						<span>Settings</span>
-					</div>
-					<div className="item">
+					</LeftPanelNavigationItem>
+					<LeftPanelNavigationItem label='Blog' extendedClass='mb-2'>
 						<svg
 							width="24"
 							height="24"
@@ -461,9 +433,7 @@ export default function LeftPanel({ open = false, ref }: { open: boolean, ref: R
 								</clipPath>
 							</defs>
 						</svg>
-
-						<span>Blog</span>
-					</div>
+					</LeftPanelNavigationItem>
 				</div>
 			</div>
 		</div>
