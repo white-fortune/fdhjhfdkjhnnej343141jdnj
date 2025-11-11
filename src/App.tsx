@@ -283,8 +283,8 @@ function App() {
 							font-['Space_Grotesk']
 						">
 							{ [1, 2, 3].map(() => {
-								return <div className="media-post mb-10 flex flex-col items-center w-full h-[60vh] gap-2">
-									<div className="metadata flex flex-col items-center w-[95%] md:w-full h-[20%] gap-3">
+								return <div className="media-post mb-10 flex flex-col items-center w-full h-[400px] md:h-[600px] min-[2000px]:h-[800px] gap-1">
+									<div className="metadata flex flex-col items-center w-[95%] md:w-full h-[20%] min-[2000px]:h-[15%] gap-3">
 										<div className="post-topbar w-full h-[25%] flex justify-between">
 											<div className="author-info flex items-center gap-1 text-[12px]">
 												<div className="profile-pic">
@@ -320,12 +320,12 @@ function App() {
 												<span>Classical and Operant Conditioning of Memory Forming</span>
 											</div>
 											<div className="post-description text-[13px] hidden md:block">
-												<span>Scientists have discovered a fundamental conflict in how the brain learns and forms memories, challenging long-held assumptions about classical and operant conditioning...<span className='text-blue-600 hover:underline cursor-pointer'>Read More</span></span>
+												<span>Scientists have discovered a fundamental conflict in how the brain learns and forms memories, challenging long-held assumptions about classical and operant conditioning. These two learning systems cannot operate simultaneously, as they compete for dominance in the brain...<span className='text-blue-600 hover:underline cursor-pointer'>Read More</span></span>
 											</div>
 										</div>
 									</div>
 
-									<div className="post-media w-[90%] h-[70%] bg-slate-500"></div>
+									<div className="post-media w-[90%] h-[70%] min-[2000px]:h-[75%] bg-slate-500"></div>
 
 									<div className="post-interaction flex gap-[20px] h-[10%] w-[90%] text-[12px]">
 										<div className="reacts flex items-center gap-1">
