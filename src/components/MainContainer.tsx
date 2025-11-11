@@ -5,9 +5,10 @@ export default function MainContainer({ children }: { children: React.ReactNode[
         <div className="main-container 
             relative
             bg-[var(--leftpanel-maincontainer-clr)]
-            h-[100vh] overflow-hidden 
+            h-[100vh] overflow-hidden w-full
             grid grid-cols-1
-            md:grid-cols-[0.9fr_5fr]
+            md:grid-cols-[1.2fr_6fr]
+            min-[2000px]:grid-cols-[0.9fr_5fr]
         ">
             { children }
         </div>
