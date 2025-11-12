@@ -7,8 +7,8 @@ function InteractionTool({ name, children, extendedClass }: { name: string, chil
 	const clonedIcon = React.cloneElement(children, {
 		className: `
 			h-[25px] w-[25px]
-			md:h-[20px] md:w-[20px]
-			min-[2000px]:h-[30px] min-[2000px]:w-[30px]
+			md:h-[18px] md:w-[18px]
+			min-[2000px]:h-[25px] min-[2000px]:w-[25px]
 		`
 	})
 
@@ -90,11 +90,11 @@ function GlobalSearchBar() {
 			w-[75%] 
 			hidden flex-row items-center 
 			border border-gray-300 rounded-full
-			md:flex md:h-[70%]
-			min-[2000px]:h-[60%]
+			md:flex md:h-[60%]
+			min-[2000px]:h-[50%]
 		">
 			<div className="search-icon w-[10%] h-full flex justify-center items-center">
-				<svg className='h-[28px] w-[28px]' viewBox="0 0 28 28" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				<svg className='h-[25px] w-[25px]' viewBox="0 0 28 28" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 					<g clip-path="url(#clip0_9382_6962)">
 						<path d="M12.5322 19.0332C13.9297 19.0332 15.2393 18.6113 16.3291 17.8906L20.1787 21.749C20.4336 21.9951 20.7588 22.1182 21.1104 22.1182C21.8398 22.1182 22.376 21.5469 22.376 20.8262C22.376 20.4922 22.2617 20.167 22.0156 19.9209L18.1924 16.0801C18.9834 14.9551 19.4492 13.5928 19.4492 12.1162C19.4492 8.31055 16.3379 5.19922 12.5322 5.19922C8.73535 5.19922 5.61523 8.31055 5.61523 12.1162C5.61523 15.9219 8.72656 19.0332 12.5322 19.0332ZM12.5322 17.1875C9.74609 17.1875 7.46094 14.9023 7.46094 12.1162C7.46094 9.33008 9.74609 7.04492 12.5322 7.04492C15.3184 7.04492 17.6035 9.33008 17.6035 12.1162C17.6035 14.9023 15.3184 17.1875 12.5322 17.1875Z" fill="#3C3C43" fill-opacity="0.6"/>
 					</g>
@@ -106,7 +106,7 @@ function GlobalSearchBar() {
 				</svg>
 			</div>
 			<div className="search-input w-[90%] h-full">
-				<input type="text" placeholder='Search NoteRoom' className='w-full h-full bg-transparent border-none outline-none text-base min-[2000px]:text-[20px]' />
+				<input type="text" placeholder='Search NoteRoom' className='w-full h-full bg-transparent border-none outline-none text-base min-[2000px]:text-[18px]' />
 			</div>
 		</div>
 	)
@@ -149,9 +149,9 @@ function SecondaryMiddleSection({ children }: { children: React.ReactNode | Reac
 function NavigationPanel({ setOpenSidebar }: { setOpenSidebar: any }) {
 	return (
 		<div className="navigation-panel
-			w-full h-[10vh] mt-2
+			w-full h-[10vh]
 			flex flex-row justify-between gap-3 justify-self-end items-center
-			md:w-[90%]
+			md:w-[90%] md:mt-2
 		">
 			
 			<GlobalSearchBar />
