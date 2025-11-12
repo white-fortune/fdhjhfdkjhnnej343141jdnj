@@ -140,7 +140,7 @@ function SecondaryMiddleSection({ children }: { children: React.ReactNode | Reac
 		<div className="secondary-middle-section left-panel
 			w-full h-[90vh] overflow-y-scroll
 			flex flex-col items-center justify-self-end
-			md:w-[90%] 
+			md:w-[90%]
 		">
 			{ children }
 		</div>
@@ -248,25 +248,28 @@ function PostSectionTools() {
 }
 function PostSection() {
 	return (
-		<div className="post-section
-			mt-5 rounded-[13px] border border-gray-300 
-			w-[95%] gap-2 p-2
-			flex flex-col 
-			md:w-full md:p-0
-			min-[2000px]:gap-3
-		">
-				
-			<PostSectionIntro />
+		<div className='flex flex-col w-full items-center'>
+			<div className="post-section
+				mt-5 rounded-[13px] border border-gray-300 
+				w-[95%] gap-2 p-2
+				flex flex-col 
+				md:w-full md:p-0
+				min-[2000px]:gap-3
+			">
+					
+				<PostSectionIntro />
 
-			<PostSectionTools />
+				<PostSectionTools />
+			</div>
+			<Divider extendedClass='my-7' />
 		</div>
 	)
 }
 
-function FeedMediaPost({ withMedia = true }: { withMedia?: boolean }) {
+function FeedMediaPost({ withMedia = true, isLast }: { withMedia: boolean, isLast: boolean }) {
 	return (
 		<div className={`media-post
-			mb-10 
+			${isLast && 'mb-10'}
 			w-full
 			flex flex-col items-center gap-1
 		`}>
@@ -364,14 +367,24 @@ function FeedPostInteraction({ name, value, children }: { name: string, value: s
 function FeedSection() {
 	return (
 		<div className="feed-section
-			mt-10
 			flex flex-col w-full items-center
 			font-['Space_Grotesk']
 		">
 			{ [1, 2, 3].map(i => {
-				return <FeedMediaPost withMedia={i%2==0} />
+				return (
+					<>
+						<FeedMediaPost withMedia={i%2==0} isLast={i === 3} />
+						{ i !== 3 && <Divider extendedClass='my-5' />}
+					</>
+				)
 			}) }
 		</div>
+	)
+}
+
+function Divider({ extendedClass }: { extendedClass?: string }) {
+	return (
+		<div className={`w-[90%] h-[1px] bg-gray-300 md:w-full ${extendedClass}`}></div>
 	)
 }
 
