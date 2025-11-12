@@ -128,8 +128,8 @@ function HolderMiddleSection({ children }: { children: React.ReactNode[] }) {
 	return (
 		<div className="holder-middle-section
 			flex flex-col items-center justify-self-center w-full
-			md:w-[75%]
-			min-[2000px]:w-[70%]
+			md:w-[70%]
+			min-[2000px]:w-[65%]
 		">
 			{ children }
 		</div>
