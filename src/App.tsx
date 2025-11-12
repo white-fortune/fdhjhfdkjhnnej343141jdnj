@@ -267,16 +267,13 @@ function FeedMediaPost({ withMedia = true }: { withMedia?: boolean }) {
 	return (
 		<div className={`media-post
 			mb-10 
-			w-full ${withMedia && 'h-[400px]'} 
+			w-full
 			flex flex-col items-center gap-1
-			md:${withMedia ? 'h-[600px]' : 'h-auto'}
-			min-[2000px]:${withMedia ? 'h-[800px]' : 'h-auto'}
 		`}>
 			<div className={`metadata
-				w-[95%] ${withMedia ? 'h-[20%]' : 'h-[90%]'}
+				w-[95%]
 				flex flex-col items-center gap-3
 				md:w-full 
-				min-[2000px]:${withMedia ? 'h-[15%]' : 'h-[90%]'}
 			`}>
 				<div className="post-topbar w-full h-[25%] flex justify-between">
 					<div className="author-info 
@@ -315,20 +312,23 @@ function FeedMediaPost({ withMedia = true }: { withMedia?: boolean }) {
 					<div className="post-title font-bold text-[15px]">
 						<span>Classical and Operant Conditioning of Memory Forming</span>
 					</div>
-					<div className={`post-description text-[13px] ${withMedia ? 'hidden md:block' : 'block'}`}>
+					<div className={`post-description text-[13px]`}>
 						<span>Scientists have discovered a fundamental conflict in how the brain learns and forms memories, challenging long-held assumptions about classical and operant conditioning. These two learning systems cannot operate simultaneously, as they compete for dominance in the brain...<span className='text-blue-600 hover:underline cursor-pointer'>Read More</span></span>
 					</div>
 				</div>
 			</div>
 
-			{withMedia && <div className="post-media 
-				w-[90%] h-[70%] 
-				min-[2000px]:h-[75%]
-				bg-slate-500
-			"></div>}
+			{withMedia && <div className="post-media
+				mt-2
+				w-[90%] h-auto max-h-[400px] 
+				overflow-hidden rounded-[15px]
+				min-[2000px]:max-h-[500px]
+			">
+					<img src="https://placehold.co/600x400/orange/white?text=Post Image" alt="Post Image" className='w-full h-auto object-cover' />
+				</div>}
 
 			<div className="post-interaction
-				h-auto w-[90%]
+				w-[90%] mt-2
 				flex gap-[20px] 
 				text-[12px]
 			">
@@ -369,7 +369,7 @@ function FeedSection() {
 			font-['Space_Grotesk']
 		">
 			{ [1, 2, 3].map(i => {
-				return <FeedMediaPost withMedia={i % 2 ==0} />
+				return <FeedMediaPost withMedia={i%2==0} />
 			}) }
 		</div>
 	)
