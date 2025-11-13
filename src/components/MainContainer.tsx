@@ -1,6 +1,6 @@
 import type React from "react";
 
-export default function MainContainer({ children }: { children: React.ReactNode[] }) {
+export default function MainContainer({ children }: { children: React.ReactNode | React.ReactNode[] }) {
     return (
         <div className="main-container 
             relative

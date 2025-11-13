@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './app.css';
 import { LeftPanel, MainContainer, RightPanel } from './components/index.tsx';
+
+
+type StateController<T> = [T, React.Dispatch<React.SetStateAction<T>>]
 
 function InteractionTool({ name, children, extendedClass }: { name: string, children: React.ReactElement<any>, extendedClass?: string }) {
 	const clonedIcon = React.cloneElement(children, {
@@ -19,14 +22,14 @@ function InteractionTool({ name, children, extendedClass }: { name: string, chil
 	)
 }
 
-function MobileLeft({ setOpenSidebar }: { setOpenSidebar: any }) {
+function MobileLeft({ hamBurgerMenuRef, sidebar: [openSidebar, setOpenSidebar] }: { sidebar: StateController<boolean>, hamBurgerMenuRef: React.RefObject<HTMLDivElement | null> }) {
 	return (
 		<div className="mobile-left
 			w-[75%] h-[70%] 
 			flex flex-row items-center gap-1
 			md:hidden
 		">
-			<div className="hamburger-menu w-[20%] h-full flex flex-row justify-center items-center" onClick={() => setOpenSidebar(true)}>
+			<div className="hamburger-menu w-[20%] h-full flex flex-row justify-center items-center" onClick={() => setOpenSidebar(!openSidebar)} ref={hamBurgerMenuRef}>
 				<svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M1 7H19M1 1H19M1 13H19" stroke="#1E1E1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
 				</svg>
@@ -146,16 +149,17 @@ function SecondaryMiddleSection({ children }: { children: React.ReactNode | Reac
 		</div>
 	)
 }
-function NavigationPanel({ setOpenSidebar }: { setOpenSidebar: any }) {
+function NavigationPanel({ sidebar, hamBurgerMenuRef }: { sidebar: StateController<boolean>, hamBurgerMenuRef: React.RefObject<HTMLDivElement | null> }) {
 	return (
 		<div className="navigation-panel
+			border-b-2
 			w-full h-[10vh]
 			flex flex-row justify-between gap-3 justify-self-end items-center
 			md:w-[90%] md:mt-2
 		">
 			
 			<GlobalSearchBar />
-			<MobileLeft setOpenSidebar={setOpenSidebar} />
+			<MobileLeft hamBurgerMenuRef={hamBurgerMenuRef} sidebar={sidebar} />
 			<InteractionsTools />
 		</div>
 	)
@@ -391,6 +395,19 @@ function Divider({ extendedClass }: { extendedClass?: string }) {
 function App() {
 	const [openSidebar, setOpenSidebar] = useState<boolean>(false)
 	const sidebarRef = useRef<HTMLDivElement | null>(null)
+	const hamBurgerMenuRef = useRef<HTMLDivElement | null>(null)
+
+	useEffect(() => {
+		const refs = [sidebarRef, hamBurgerMenuRef]
+		function handleClick(e: MouseEvent) {
+			if (!openSidebar) return;
+			if (refs.some(ref => ref.current?.contains(e.target as Node))) return;
+			setOpenSidebar(false)
+		}
+
+		document.addEventListener("click", handleClick);
+		return () => document.removeEventListener("click", handleClick)
+	}, [sidebarRef, hamBurgerMenuRef, openSidebar])
 
 	return (
 		<MainContainer>
@@ -398,7 +415,7 @@ function App() {
 
 			<PrimaryMiddleSection>
 				<HolderMiddleSection>
-					<NavigationPanel setOpenSidebar={setOpenSidebar} />
+					<NavigationPanel hamBurgerMenuRef={hamBurgerMenuRef} sidebar={[openSidebar, setOpenSidebar]} />
 
 					<SecondaryMiddleSection>
 						<PostSection />

@@ -66,11 +66,11 @@ export default function LeftPanel({ open = false, ref }: { open: boolean, ref: R
 	return (
 		<div className={`left-panel 
 			bg-[var(--leftpanel-maincontainer-clr)] 
-			overflow-y-auto
-			absolute w-[70%] z-10 h-[100vh]
+			overflow-y-auto border-r-2
+			absolute w-[65%] z-10 h-[90vh] bottom-0
 			transition-transform duration-300
 			transform ${open ? 'translate-x-0' : '-translate-x-full'}
-			md:static md:flex md:flex-col md:items-start md:w-full md:translate-x-0
+			md:static md:flex md:flex-col md:items-start md:w-full md:translate-x-0 md:border-r-0
 		`} ref={ref}>
 			<div className="leftpanel-container w-[90%] h-[100vh] flex flex-col gap-[20px] items-center">
 				<div className="logo-container hidden w-[95%] md:flex justify-start pl-[2vh]">
