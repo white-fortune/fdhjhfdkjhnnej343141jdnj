@@ -2,3 +2,8 @@
 	scrollbar-width: none;
 	scrollbar-color: transparent transparent;
 }
+
+.scrollbar {
+	scrollbar-width: thin;
+	scrollbar-color: #42ACDE var(--leftpanel-maincontainer-clr);
+}
