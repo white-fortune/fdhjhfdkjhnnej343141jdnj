@@ -66,13 +66,13 @@ export default function LeftPanel({ open = false, ref }: { open: boolean, ref: R
 	return (
 		<div className={`left-panel 
 			bg-[var(--leftpanel-maincontainer-clr)] 
-			overflow-y-auto border-r-2
+			overflow-visible border-r-2
 			absolute w-[65%] z-10 h-[90vh] bottom-0
 			transition-transform duration-300
 			transform ${open ? 'translate-x-0' : '-translate-x-full'}
-			md:static md:flex md:flex-col md:items-start md:w-full md:translate-x-0 md:border-r-0
+			md:static md:flex md:flex-col md:items-start md:w-full md:translate-x-0 md:border-r-0 md:h-[100vh] md:z-0
 		`} ref={ref}>
-			<div className="leftpanel-container w-[90%] h-[100vh] flex flex-col gap-[20px] items-center">
+			<div className="leftpanel-container overflow-y-auto w-[90%] h-full flex flex-col gap-[20px] items-center">
 				<div className="logo-container hidden w-[95%] md:flex justify-start pl-[2vh]">
 					<svg
 						width="122"
@@ -435,6 +435,19 @@ export default function LeftPanel({ open = false, ref }: { open: boolean, ref: R
 						</svg>
 					</LeftPanelNavigationItem>
 				</div>
+			</div>
+
+			<div className="toggle-sidebar
+				hidden items-center justify-center 
+				absolute top-[15%] left-full 
+				-translate-x-1/2 -translate-y-1/2 w-8 h-8 
+				md:flex
+				min-[2000px]:top-[10.5%]
+				bg-white shadow-md rounded-md
+			">
+				<svg width="11" height="19" viewBox="0 0 11 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M9.33203 17.333L1.33203 9.33301L9.33203 1.33301" stroke="#5F5E5B" stroke-width="2.66667" stroke-linecap="round" stroke-linejoin="round"/>
+				</svg>
 			</div>
 		</div>
 	);
